@@ -1,16 +1,24 @@
 package main
 import (
-	"net/http"
+	
 	"github.com/gin-gonic/gin"
-//	"github.com/sibykarthikeyan/ExpenseReport/api/models"
+	"github.com/sibykarthikeyan/ExpenseReport/models"
+	"github.com/sibykarthikeyan/ExpenseReport/controllers"
+	"github.com/sibykarthikeyan/ExpenseReport/db"
 )
 
 func main (){
 	r:=gin.Default()
+	
+	db.InitB()
 
-	r.GET("/",func(c *gin.Context){
-		c.JSON(http.StatusOK, gin.H{"data":"Hello expense"})
-	})
-	//db := models.connection()
+	/* r.Use(func(c *gin.Context){
+		c.Set("db",db)
+		c.Next()
+	}) */
+	r.GET("/expenses",controllers.GetExpenseDetails)
+	r.POST("/CreateExpenseList",controllers.CreateExpenseList)
 	r.Run()
 }
+
+
