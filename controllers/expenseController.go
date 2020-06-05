@@ -94,7 +94,12 @@ func UpdateExpenseList(c *gin.Context) {
 		return
 	}
 	if count > 0 {
-		c.JSON(http.StatusOK,expenses)
+		c.JSON(http.StatusOK,gin.H{
+			"id" : id,
+			"name":expenses.Name,
+			"expenseName":expenses.ExpenseName,
+			"expenseAmount":expenses.ExpenseAmount,
+		})
 	}else{
 		c.JSON(400,gin.H{
 			"error": "No records found",
